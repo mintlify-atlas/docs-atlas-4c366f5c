@@ -1,0 +1,29 @@
+---
+title: "Internal graphs: nested sub-pipelines inside skills"
+description: "Every custom skill in GUIness can contain its own internal graph — a sub-pipeline that defines the skill's behavior as a composition of other nodes."
+---
+
+Internal graphs let you nest a full pipeline inside a single node. Instead of exposing every step of a complex workflow on the main canvas, you encapsulate the logic inside a custom skill, giving it a clean single-node interface while keeping all the implementation detail accessible when you need it. This is how GUIness supports reusable, composable skills that can themselves be wired into larger pipelines.
+
+## Opening an internal graph
+
+Double-click any custom skill node on the canvas to dive into its internal graph. The canvas zooms into the sub-graph view, and a breadcrumb trail appears at the top of the canvas showing your current navigation depth — for example, `Main Pipeline › Research Skill`. The sub-graph is a full pipeline canvas: you can add, connect, and configure nodes exactly as you would at the top level.
+
+## Graph I/O nodes
+
+Sub-graphs communicate with the outside world through two dedicated system nodes:
+
+- **▶ GRAPH INPUT** — Place this node inside the sub-graph to receive data from the parent node's input ports. It acts as the entry point for anything passed into the custom skill from the outer pipeline.
+- **◀ GRAPH OUTPUT** — Place this node inside the sub-graph to send results back out to the parent node's output ports. Whatever you connect to GRAPH OUTPUT is what the skill exposes to downstream nodes in the outer pipeline.
+
+## Navigation
+
+Click any link in the breadcrumb trail to navigate back up through the graph hierarchy. Clicking the root-level breadcrumb returns you to the main pipeline canvas.
+
+<Tip>
+Internal graphs are the primary mechanism for building reusable, composable skills. Define the logic once inside a skill's internal graph, then drop that skill into any pipeline and wire it up like any other node. Changes to the internal graph propagate everywhere the skill is used.
+</Tip>
+
+<Note>
+Primitive nodes — TEXT, INPUTS, COMPUTE, CODE, ROUTER, and CONTEXT — do not have internal graphs. Only custom skills support the double-click-to-enter behavior. Double-clicking a primitive node body on the canvas has no effect.
+</Note>

@@ -1,0 +1,44 @@
+---
+title: "Wiring nodes: connections and data flow in GUIness"
+description: "Learn how to wire nodes together using input and output ports, understand data flow direction, and control pipeline execution with Single and Chain modes."
+---
+
+Connections are the edges that define how data moves through your pipeline. Every connection links an output port on one node to an input port on another, establishing both the direction of data flow and the execution order that GUIness uses when running your pipeline.
+
+## Port types
+
+Each node exposes ports on its left and right sides:
+
+- **Input ports** (left side) — Rendered as open circles with a colored stroke. They accept data from upstream nodes. When a connection is made, the stroke fills with the node's color to indicate the port is in use.
+- **Output ports** (right side) — Rendered as solid filled circles. They send data downstream to any connected input ports.
+
+## Making connections
+
+<Steps>
+  <Step title="Hover over an output port">
+    Move your cursor over a solid output port on the right side of a node. The cursor changes to a crosshair when you are over a connectable port.
+  </Step>
+  <Step title="Drag toward the target node">
+    Click and drag from the output port toward the input port you want to connect to. A preview edge follows your cursor as you drag.
+  </Step>
+  <Step title="Release on the target input port">
+    Drop the edge onto an open input port (left side) on another node. The connection snaps into place and the input port stroke fills to confirm the link.
+  </Step>
+</Steps>
+
+## Data flow
+
+Connections in GUIness flow left-to-right by convention, matching the natural reading direction of a pipeline. The system enforces this by preventing cycles — you cannot draw a connection that would create an infinite loop in the graph, except through ROUTER nodes that have explicit loop control with a configurable maximum iteration count.
+
+How your data actually moves at runtime depends on the execution mode you select:
+
+- **Single mode** — All connected nodes are compiled into one monolithic prompt and sent to the LLM as a single call. Node boundaries disappear; the LLM sees everything at once.
+- **Chain mode** — Nodes execute sequentially in topological order. Each node's output is piped as input to the next node in the sequence. CONTEXT nodes merge multiple inputs into a unified object without making an LLM call. ROUTER nodes evaluate their condition and branch execution down the pass or fail path.
+
+<Note>
+The system prevents cycles at the graph level. You cannot connect a node's output back to an upstream node unless you are using a ROUTER configured for looping — which enforces a maximum iteration count to keep execution bounded.
+</Note>
+
+<Tip>
+Use Chain mode for complex multi-step workflows where the output of one step must inform the next. It gives you step-by-step progress output and makes debugging much easier than a single monolithic prompt.
+</Tip>

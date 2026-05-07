@@ -1,0 +1,71 @@
+---
+title: "Run GUIness pipelines against Claude, GPT, or Ollama"
+description: "Send your compiled GUIness pipeline to Anthropic Claude, OpenAI GPT, Google Gemini, or local Ollama and view streamed results with follow-up support."
+---
+
+The Run section lives inside the Export drawer, directly below the output format tabs. After selecting a format, choose a provider and model, then click **▶ Send to LLM** to execute your pipeline. Responses stream in real time and remain editable, shareable, and continuable with follow-up messages.
+
+<Note>
+  API keys must be added to the Vault before running. Open the Vault from the top toolbar and add credentials for your chosen provider.
+</Note>
+
+## Providers
+
+| Provider | Models | Endpoint |
+|----------|--------|----------|
+| **Anthropic** | Claude models | API key from Vault |
+| **OpenAI** | GPT models | API key from Vault |
+| **Gemini** | Gemini models (fetched live from API) | Gemini API key from Vault |
+| **Local** | Ollama or OpenClaw | `http://localhost:11434` (Ollama) or `http://localhost:18789` (OpenClaw) — click **Detect** to discover available models |
+
+For local providers, no API key is required. Select **⊙ Local**, confirm the URL matches your running instance, and click **Detect** to populate the model list.
+
+## Execution modes
+
+<Tabs>
+  <Tab title="Single">
+    Single mode compiles your entire connected pipeline into one monolithic prompt and sends it as a single LLM call. This is the fastest execution path and works well for pipelines where all context can be expressed in one prompt.
+
+    - All connected nodes are serialized in topological order into a single payload
+    - The prompt is sent to the selected provider in one request
+    - The response streams into the response area in real time as tokens arrive
+
+    Use Single mode for straightforward pipelines, quick iteration, and any pipeline where inter-step dependencies do not require separate LLM calls.
+  </Tab>
+  <Tab title="Chain">
+    Chain mode executes connected nodes one at a time, in topological order. Each node's output becomes the input for the next node in the sequence.
+
+    - **Compute nodes** — Each node makes its own LLM call using the compiled instructions plus any upstream output as context
+    - **Router nodes** — Evaluate the configured condition (natural language via LLM or a JavaScript expression) and branch execution down the pass or fail output port
+    - **Context nodes** — Merge multiple upstream inputs into a unified context object without making an LLM call
+    - The response area shows step-by-step progress with a header for each completed node
+
+    Chain mode is suited to complex workflows where earlier results must inform later steps, or where conditional branching determines the execution path.
+  </Tab>
+</Tabs>
+
+<Tip>
+  Use Chain mode for sequential workflows — for example, research → summarize → format → review — where each step depends on the output of the previous one. Single mode is faster for flat, context-rich prompts.
+</Tip>
+
+## Response area
+
+After execution, the response appears in the panel below the Send button. Several controls are available:
+
+<Steps>
+  <Step title="Raw / Preview">
+    Toggle between markdown rendering and a live HTML preview. HTML blocks in the response are rendered inside sandboxed iframes to prevent script execution outside the preview area.
+  </Step>
+  <Step title="Edit">
+    Click **Edit** to make the response text editable inline. All formatting is preserved. Use this to refine the output before copying or saving.
+  </Step>
+  <Step title="Copy / Save">
+    **Copy** sends the response to your clipboard as plain text. **Save** downloads the response as a file. The file extension is auto-detected from the content — `.md` for Markdown, `.html` for HTML, `.py` for Python, and so on.
+  </Step>
+  <Step title="Follow-up">
+    Type a follow-up message in the input below the response and press **Send**. The full conversation history is included in the next request, so the model retains context from all previous exchanges in the session.
+  </Step>
+  <Step title="Clear">
+    Click **Clear** to reset the response area and wipe the conversation history. The next run starts a fresh session.
+  </Step>
+</Steps>

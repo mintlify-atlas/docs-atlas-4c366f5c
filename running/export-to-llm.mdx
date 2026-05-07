@@ -1,0 +1,66 @@
+---
+title: "Export GUIness pipelines to Markdown, GPT JSON, or Gem"
+description: "GUIness compiles your pipeline into Markdown, GPT JSON for Custom GPTs, or Gemini Gem format — with live token count and cost estimates per model."
+---
+
+Click **Export → LLM** in the top-right toolbar to open the export drawer. GUIness compiles your connected pipeline nodes into a structured prompt payload ready to send to any supported LLM provider. Three output formats are available, each targeting a different runtime or sharing workflow.
+
+## Output formats
+
+<Tabs>
+  <Tab title="Markdown">
+    The Markdown export produces a structured document that captures your pipeline's execution sequence, step-by-step node details, and any reference material attached to nodes. It is the most human-readable format and works well for documentation, code review, or sharing pipelines with collaborators who are not using GUIness.
+
+    The exported file contains:
+
+    - An execution sequence listing nodes in topological order
+    - Per-step details drawn from each node's instructions, code, and description fields
+    - Reference materials included as appended sections
+
+    Use the **Download** button to save as a `.md` file, or click **Copy** to send the content directly to your clipboard.
+  </Tab>
+  <Tab title="GPT (JSON)">
+    The GPT (JSON) export produces a JSON payload formatted for the OpenAI Assistants API or Custom GPTs. The object contains three top-level fields:
+
+    ```json
+    {
+      "systemPrompt": "You are a pipeline assistant ...",
+      "instructions": "Step 1: ...\nStep 2: ...",
+      "tools": []
+    }
+    ```
+
+    - `systemPrompt` — The compiled identity and context drawn from your pipeline's root nodes
+    - `instructions` — The ordered step sequence from connected Compute, Code, and Router nodes
+    - `tools` — Function-calling definitions array
+
+    Paste the JSON directly into the OpenAI Assistants API `POST /assistants` body, or upload it when configuring a Custom GPT in the OpenAI dashboard.
+  </Tab>
+  <Tab title="Gem">
+    The Gem export produces a plain-text format compatible with Google Gemini Gems. The output is divided into three sections:
+
+    - **Identity** — A name and role description for the Gem, derived from your pipeline's top-level nodes
+    - **Instructions** — A prose description of what the Gem should do
+    - **Step sequence** — An ordered list of steps drawn from connected nodes in topological order
+
+    Copy the text and paste it into the Gemini Gem configuration interface.
+  </Tab>
+</Tabs>
+
+## Prompt size
+
+The bottom of the export drawer displays a live estimate of the compiled prompt's size. Token count is approximated at roughly 4 characters per token. A cost estimate is also shown, calculated using the per-token pricing of the model currently selected in the Run section.
+
+These estimates update immediately as you switch between output formats or change the selected model.
+
+## Connected nodes only
+
+GUIness only includes nodes that are connected to at least one edge when compiling an export. A node sitting on the canvas with no connections is treated as a draft and silently excluded from all output formats.
+
+<Note>
+  Only nodes connected to at least one edge are included in the export. Disconnected nodes are ignored regardless of their content.
+</Note>
+
+<Tip>
+  Use the Markdown export to share your pipeline as living documentation. The structured format renders cleanly in GitHub, Notion, and most markdown viewers, making it a fast way to hand off a workflow to a teammate without requiring them to open GUIness.
+</Tip>

@@ -1,0 +1,47 @@
+---
+title: "Building and organizing multi-tab GUIness pipelines"
+description: "How to create, populate, organize, and save pipelines in GUIness — from adding your first node to working across multiple pipeline tabs."
+---
+
+A pipeline is the top-level canvas where you design your workflow. It holds a set of nodes, the connections between them, and its own independent undo/redo history. You can have multiple pipelines open at the same time, each in its own tab, letting you work across different workflows without losing context.
+
+## Creating a pipeline
+
+Click the `+` button in the tab bar to create a new empty pipeline. Each pipeline is isolated — its canvas, nodes, edges, and undo/redo history are completely independent from any other open pipeline.
+
+## Adding nodes
+
+Click the `+` button next to any skill in the Node Library to place it on the canvas. You can also use **Import File** to load external files directly as nodes. Supported formats are `.md`, `.json`, `.txt`, and `.skill`/`.zip` archives.
+
+## Organizing your canvas
+
+Once nodes are on the canvas, you have several tools for arranging them clearly:
+
+- Drag nodes to position them anywhere on the canvas
+- Resize a node's width by dragging its left or right edge
+- Multi-select with **Shift+click** on individual nodes, or lasso-select by clicking and dragging on an empty area of the canvas
+- Toggle **Snap to grid** in the top toolbar to align nodes to a regular grid for cleaner layouts
+
+## Node features
+
+Nodes expose several controls for working with their content directly on the canvas:
+
+- **Double-click the title** to rename a node inline without opening the Inspector
+- **Content drawer** — click the `▸ CONTENT` toggle on a node to expand or collapse a preview of its skill content; the drawer has View and Edit modes
+- **Bottom drag bar** — drag the bar at the bottom of the content drawer to resize it vertically
+- **Double-click the node body** to open its internal graph (available on custom skills only)
+
+## Saving
+
+Pipelines are auto-saved to localStorage at a configurable interval (default: 1 minute). You can also save manually at any time:
+
+- **💾 Save Pipeline** — saves the current state to localStorage
+- **◎ Save as Node** — exports the pipeline as a `.pipeline.json` file with all bundled skills included, suitable for sharing or archiving
+
+<Tip>
+Use multiple pipeline tabs for different stages of the same overall workflow — for example, one tab for research, one for drafting, and one for publishing. Switching between tabs is instant and each tab keeps its own history.
+</Tip>
+
+<Note>
+Undo/redo history is scoped per pipeline. Switching to a different pipeline tab does not affect or reset the history of the tab you came from.
+</Note>

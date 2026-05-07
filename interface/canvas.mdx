@@ -1,0 +1,54 @@
+---
+title: "GUIness pipeline canvas: pan, zoom, and select nodes"
+description: "Master the GUIness pipeline canvas — pan, zoom, select nodes with lasso or Alt+Click, use the minimap, and collapse panels to maximize workspace."
+---
+
+The canvas is the main workspace in GUIness where you build, connect, and arrange nodes into pipelines. It is a free-form, infinite surface that supports panning, zooming, multi-node selection, and a collapsible minimap — all designed to keep the focus on your pipeline as it grows.
+
+## Pan and zoom
+
+<CardGroup cols={3}>
+  <Card title="Pan" icon="hand">
+    Middle-click and drag anywhere on the canvas, or hold **Spacebar** and left-click drag to pan in any direction.
+  </Card>
+  <Card title="Zoom" icon="magnifying-glass">
+    Scroll the mouse wheel to zoom in and out. The current zoom percentage is displayed in the bottom-right corner of the canvas.
+  </Card>
+  <Card title="Reset view" icon="arrows-maximize">
+    Click the **Reset View** button in the top toolbar to fit all nodes back into the visible viewport.
+  </Card>
+</CardGroup>
+
+## Selection
+
+GUIness supports several ways to select one or more nodes on the canvas:
+
+| Method | Behavior |
+|---|---|
+| **Click** | Selects the clicked node and deselects everything else. |
+| **Shift+Click** | Adds the clicked node to the current selection, or removes it if already selected. |
+| **Lasso** | Click and drag on an empty area of the canvas to draw a selection rectangle. All nodes within the rectangle are selected when you release. |
+| **Alt+Click** | Selects the clicked node and every node connected downstream from it — useful for grabbing an entire branch at once. |
+
+<Tip>
+  Use **Alt+Click** on any node to instantly select the entire downstream chain connected to it. This makes it easy to move, copy, or delete a complete sub-pipeline in one action.
+</Tip>
+
+## Minimap
+
+The minimap is a collapsible birds-eye view docked to the bottom-right corner of the canvas. It gives you an overview of your entire pipeline regardless of your current zoom level.
+
+- All nodes appear as small colored rectangles matching their node color.
+- Edges between nodes are shown as lines.
+- **Click** anywhere on the minimap to jump the canvas view to that position.
+- **Drag** on the minimap to pan the canvas view smoothly.
+- Selected nodes are highlighted with a thicker border in the minimap.
+- Collapse or expand the minimap by clicking the **▾ MAP** toggle above it.
+
+## Collapsible panels
+
+Both the Node Library (left) and the Inspector Panel (right) can be collapsed to give the canvas more horizontal space.
+
+- Click the **◂** button on the left panel or the **▸** button on the right panel to collapse them.
+- When collapsed, a narrow vertical label strip remains visible. Click it to expand the panel again.
+- Collapsing both panels gives you the full width of the browser window for the canvas.

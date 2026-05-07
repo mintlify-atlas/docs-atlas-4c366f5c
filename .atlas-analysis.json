@@ -1,0 +1,90 @@
+{
+  "projectType": "saas",
+  "projectName": "GUIness",
+  "projectDescription": "A self-contained, browser-based visual pipeline builder for designing, testing, and executing AI skill workflows — no server or install required.",
+  "theme": "almond",
+  "primaryColor": "#e8a020",
+  "lightColor": null,
+  "darkColor": "#0e1117",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "introduction",
+              "quickstart",
+              "ui-overview"
+            ]
+          },
+          {
+            "group": "Core Concepts",
+            "pages": [
+              "concepts/primitives",
+              "concepts/connections",
+              "concepts/pipelines",
+              "concepts/internal-graphs"
+            ]
+          },
+          {
+            "group": "Interface",
+            "pages": [
+              "interface/node-library",
+              "interface/inspector",
+              "interface/canvas"
+            ]
+          },
+          {
+            "group": "Running & Exporting",
+            "pages": [
+              "running/export-to-llm",
+              "running/run-pipeline",
+              "running/post-to-social"
+            ]
+          },
+          {
+            "group": "Data & Sync",
+            "pages": [
+              "data/vault",
+              "data/autosave",
+              "data/gist-sync",
+              "data/import-export"
+            ]
+          },
+          {
+            "group": "Reference",
+            "pages": [
+              "reference/keyboard-shortcuts"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Visual node-based pipeline builder running entirely in the browser with no install or server required",
+    "6 primitive node types: TEXT, INPUTS, COMPUTE, CODE, ROUTER, and CONTEXT",
+    "Multi-provider LLM execution: Anthropic Claude, OpenAI GPT, Google Gemini, and local Ollama/OpenClaw",
+    "Single and Chain execution modes for sequential or monolithic pipeline runs",
+    "AI-powered skill generation — describe a skill and let an LLM create it",
+    "AES-GCM encrypted Vault for secure credential storage in the browser",
+    "GitHub Gist sync for cloud backup and cross-device access",
+    "Export pipelines to Markdown, GPT JSON, or Gemini Gem formats",
+    "Post LLM output directly to Bluesky, LinkedIn, Twitter, and Instagram",
+    "Autosave to localStorage and optional File System API backup"
+  ],
+  "publicApiSurface": [
+    "TEXT node — static text/prompt entry point",
+    "INPUTS node — file, URL, clipboard, and API endpoint data sources",
+    "COMPUTE node — LLM inference, function calls, HTTP requests, code execution",
+    "CODE node — Python, JavaScript, TypeScript, Bash, SQL code blocks",
+    "ROUTER node — conditional branching and loop control",
+    "CONTEXT node — stateless input merging and variable aggregation",
+    "GRAPH INPUT / GRAPH OUTPUT — sub-graph I/O wiring nodes",
+    "Export formats: Markdown (.md), GPT JSON, Gemini Gem",
+    "Vault credential types: Anthropic, OpenAI, Gemini, OpenClaw, GitHub, Bluesky, LinkedIn, Twitter, Instagram",
+    "Pipeline file formats: .pipeline.json, .skill, .zip"
+  ]
+}

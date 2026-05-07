@@ -1,0 +1,61 @@
+---
+title: "GUIness: a browser-based visual AI pipeline builder"
+description: "GUIness is a self-contained, browser-based pipeline builder for designing and running AI workflows. No install, no server — open the file and start building."
+---
+
+GUIness is a single-file HTML application that runs entirely in your browser. It gives you a visual canvas for composing AI skill pipelines from reusable node primitives, connecting them together, and executing them against real LLM providers — all without installing anything or running a server.
+
+<CardGroup cols={2}>
+  <Card title="Quick Start" icon="rocket" href="/quickstart">
+    Open GUIness and build your first AI pipeline in minutes
+  </Card>
+  <Card title="UI Overview" icon="display" href="/ui-overview">
+    Learn the layout: canvas, node library, inspector, and toolbar
+  </Card>
+  <Card title="Node Primitives" icon="shapes" href="/concepts/primitives">
+    The 6 building blocks every pipeline is made from
+  </Card>
+  <Card title="Run a Pipeline" icon="play" href="/running/run-pipeline">
+    Execute your pipeline against Claude, GPT, Gemini, or Ollama
+  </Card>
+</CardGroup>
+
+## What is GUIness?
+
+GUIness is a visual AI workflow editor. You drag and drop node primitives onto a canvas, connect them with edges, and configure each node through an inspector panel. When you're ready, you export or run your pipeline against any supported LLM provider.
+
+The entire application is a single `.html` file. There is no backend, no API server, no database, and no authentication service. Everything — your skills, pipelines, credentials, and settings — lives in your browser's `localStorage` or optionally synced to a private GitHub Gist.
+
+## Key features
+
+<CardGroup cols={2}>
+  <Card title="6 Node Primitives" icon="cube">
+    TEXT, INPUTS, COMPUTE, CODE, ROUTER, and CONTEXT — compose any workflow from these building blocks
+  </Card>
+  <Card title="Multi-Provider LLM" icon="brain">
+    Run pipelines against Anthropic Claude, OpenAI GPT, Google Gemini, or local Ollama/OpenClaw
+  </Card>
+  <Card title="Encrypted Vault" icon="lock">
+    AES-GCM encrypted credential storage in the browser — API keys never leave your machine unencrypted
+  </Card>
+  <Card title="GitHub Gist Sync" icon="github">
+    Back up and sync your skill library and pipelines to a private GitHub Gist
+  </Card>
+  <Card title="Export Formats" icon="file-export">
+    Export pipelines as Markdown, GPT JSON (for Custom GPTs), or Gemini Gem format
+  </Card>
+  <Card title="Social Publishing" icon="share-nodes">
+    Post LLM output directly to Bluesky, LinkedIn, Twitter, and Instagram
+  </Card>
+</CardGroup>
+
+## How it works
+
+GUIness pipelines are made of **nodes** connected by **edges**. Each node has a type (one of the 6 primitives), configurable fields, and input/output ports. You wire nodes together to define a data flow, then run the pipeline in one of two execution modes:
+
+- **Single mode** — compiles the entire connected graph into one prompt and sends it to the LLM as a single call
+- **Chain mode** — executes nodes sequentially in topological order, piping each node's output as input to the next
+
+<Note>
+GUIness runs entirely in the browser. No data is sent to any server except for the LLM API calls you explicitly trigger using your own API keys.
+</Note>

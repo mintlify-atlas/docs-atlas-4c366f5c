@@ -1,0 +1,76 @@
+---
+title: "Inspector Panel: view and configure selected nodes"
+description: "The GUIness Inspector Panel shows and edits details for the selected node — metadata, primitive fields, I/O ports, skill content, and the internal graph."
+---
+
+The Inspector Panel is the right panel of the GUIness interface. It adapts based on the node you have selected — on the canvas or in the library — and gives you full control over every aspect of a skill: its metadata, configurable fields, input and output ports, raw skill content, and internal graph.
+
+## Metadata
+
+The top section of the Inspector shows the skill's identity and display properties. Every field here applies to the skill definition itself, not to a single instance on the canvas.
+
+- **Glyph** — The icon displayed on the node. Click it to open the glyph picker and choose a different symbol.
+- **Name** — The label shown on the node and in the library. Click to edit inline.
+- **Description** — A free-text description of what the skill does. The textarea grows automatically as you type.
+- **Tags** — Type a tag and press **Enter** to add it. Click **×** next to any tag to remove it.
+- **Color dots** — Click a dot to assign that color to the node's border and accent. Double-click any dot to open a color picker and customize it. The **+** button adds a new custom color slot.
+- **Shape** — Controls the node border style: **Standard** (solid border), **Dashed**, or **Ghost** (minimal outline).
+- **Category** — Assigns the skill to a library category. Choose from existing categories or select **Custom** to enter a new one.
+- **Built-In toggle** — When set to **On**, the skill is locked: it cannot be edited or deleted from the library. Set to **Off** to keep the skill editable.
+
+## Fields
+
+When a node is selected on the canvas, the Inspector shows its configurable primitive fields. The fields displayed depend on the node's primitive type:
+
+<AccordionGroup>
+  <Accordion title="Text">
+    **Content** — A full code editor for entering static text, prompt templates, or reference material. Supports syntax highlighting.
+  </Accordion>
+  <Accordion title="Inputs">
+    - **Source Type** — Select the kind of input: text, file, URL, API endpoint, or clipboard.
+    - **Content / Path / URL** — The input value, file path, or URL corresponding to the selected source type.
+    - **Upload File** — A file picker for uploading files whose content is extracted automatically.
+    - **Headers** — Key-value pairs for HTTP request headers when the source type is a URL or API endpoint.
+    - **Description** — A short note describing what this input provides to downstream nodes.
+  </Accordion>
+  <Accordion title="Compute">
+    - **Instructions** — Describes what the node should do. This is the primary prompt field for LLM-backed compute nodes.
+    - **Executor** — Selects the execution mode: LLM, Function, HTTP, or Code.
+  </Accordion>
+  <Accordion title="Code">
+    - **Language** — The programming language for the code block. Supports Python, JavaScript, TypeScript, Bash, SQL, and more.
+    - **Code** — The code editor for entering scripts, queries, or configuration.
+  </Accordion>
+  <Accordion title="Router">
+    - **Condition** — The branching condition evaluated at runtime.
+    - **Evaluation mode** — How the condition is evaluated: **LLM** (natural-language judgment) or **JS expression** (JavaScript boolean expression).
+    - **Max Loops** — The maximum number of loop iterations allowed before the router exits.
+  </Accordion>
+  <Accordion title="Context">
+    - **Variables** — Named variables that are injected into the context object merged from all connected inputs.
+    - **Merge Mode** — Controls how multiple inputs are combined into the unified context.
+  </Accordion>
+</AccordionGroup>
+
+## I/O ports
+
+The **INPUTS** and **OUTPUTS** sections let you manage the connection ports on the selected node.
+
+- Click **+ Add** to create a new input or output port. Give it a name and select its type.
+- Click **Edit** next to any existing port to modify its name or type.
+- Ports appear on the left (inputs) and right (outputs) sides of the node on the canvas.
+
+## Content tab
+
+The **Content** tab shows the skill's raw definition rendered as formatted markdown. Use it to review the skill's instructions, structure, and reference material without leaving the canvas.
+
+- Click **Edit** to switch to edit mode and modify the content directly.
+- Click **Save** to commit your changes. Saving creates a new skill branch, preserving the original version.
+
+<Tip>
+  Use the Content tab to quickly review and refine skill instructions while the pipeline is open. You can iterate on prompt content and save new branches without opening the full skill wizard.
+</Tip>
+
+## Graph tab
+
+The **Graph** tab is available for custom (non-primitive) skills. It shows an overview of the skill's internal node graph and an **Open Graph** button that dives into the sub-graph on the canvas, letting you inspect and edit the composition of primitive nodes that define the skill's behavior.

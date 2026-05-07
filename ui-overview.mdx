@@ -1,0 +1,79 @@
+---
+title: "GUIness interface: layout, panels, and toolbar guide"
+description: "A tour of the GUIness interface covering the top toolbar, pipeline tabs, node library, pipeline canvas, inspector panel, and minimap."
+---
+
+GUIness uses a three-panel layout: a collapsible Node Library on the left, the Pipeline Canvas in the center, and a collapsible Inspector panel on the right. A top toolbar spans the full width, and a minimap sits in the bottom-right corner of the canvas. Every panel is purpose-built for a specific part of the pipeline-building workflow.
+
+## Interface areas
+
+<CardGroup cols={2}>
+  <Card title="Top toolbar" icon="bars">
+    Spans the full width of the application. Contains the pipeline name field, quick-action buttons (**Delete Node**, **Reset View**, **Clear**), save and load controls, **Vault** access, a key count indicator, the **Snap** toggle for grid alignment, and the **Export → LLM** button that opens the Run drawer.
+  </Card>
+
+  <Card title="Pipeline tabs" icon="table-columns">
+    Each open pipeline is displayed as a tab directly below the toolbar. Click a tab to switch pipelines. Double-click a tab to rename it inline. Drag tabs to reorder them. Click **×** to close a pipeline. Click **+** to create a new empty pipeline with its own canvas and undo/redo history.
+  </Card>
+
+  <Card title="Node Library" icon="sidebar">
+    The left panel. Browse, search, and filter all available skills. Organized into four tabs:
+
+    - **My Skills** — user-created skills, organized by editable categories
+    - **Built-In** — the 6 primitive node types plus Graph I/O nodes (locked, cannot be edited or deleted)
+    - **Recent** — recently used skills for quick access
+    - **Pipelines** — open and recently closed pipelines
+
+    Use **Generate** to create a skill with AI, **Add Skill** to create one manually, or **Import File** to load from disk.
+  </Card>
+
+  <Card title="Pipeline canvas" icon="diagram-project">
+    The central workspace. Drop nodes here, connect them with edges, and arrange them into a pipeline. Drag nodes to reposition them. Scroll to zoom in and out. Pan with middle-click drag, or hold **Spacebar** and left-click drag. A dot grid helps with visual alignment. The zoom percentage is shown in the bottom-right corner.
+  </Card>
+
+  <Card title="Inspector panel" icon="panel-right">
+    The right panel. Shows details for the currently selected node. The top section lets you edit the node's name, description, tags, color, shape, and category. Below that are the node's configurable fields (instructions, code, variables, conditions), I/O port editor, and a **Content** tab for viewing and editing the raw skill content as markdown.
+  </Card>
+
+  <Card title="Minimap" icon="map">
+    A birds-eye view of your full pipeline, anchored to the bottom-right corner of the canvas. Nodes appear as colored rectangles; edges appear as lines. Click anywhere in the minimap to navigate to that position. Drag to pan. Selected nodes are highlighted with a thicker border. Collapse the minimap using the **MAP** toggle.
+  </Card>
+</CardGroup>
+
+## Collapsible panels
+
+Both the Node Library and Inspector panel can be collapsed to give the canvas more room.
+
+- Click the **◂** / **▸** button on the panel edge to collapse or expand it.
+- Click the vertical label strip (the thin bar left behind when a panel is collapsed) to expand it again.
+
+<Note>
+  The canvas is the central workspace. Collapsing both side panels maximizes the available space for large or complex pipelines.
+</Note>
+
+## Node Library tabs
+
+The Node Library's four tabs organize skills by origin and recency:
+
+| Tab | Contents |
+|-----|----------|
+| **My Skills** | User-created skills. Editable, duplicatable, deletable. Organized into collapsible, renameable categories. |
+| **Built-In** | The 6 primitive node types (Text, Inputs, Compute, Code, Router, Context) plus Graph Input and Graph Output. Locked — cannot be edited or deleted. |
+| **Recent** | Skills used most recently across all pipelines. |
+| **Pipelines** | Open pipelines and recently closed ones. |
+
+## Inspector panel sections
+
+When a canvas node is selected, the Inspector panel adapts to that node's type:
+
+| Section | Description |
+|---------|-------------|
+| **Metadata** | Name, description, tags, color, shape, category, and built-in lock toggle. |
+| **Fields** | Node-type-specific inputs: instructions and executor for Compute, language and code for Code, condition and evaluation mode for Router, variables and merge mode for Context. |
+| **I/O Ports** | Add, remove, rename, and set types for the node's input and output connection ports. |
+| **Content tab** | View the skill's raw content rendered as markdown. Click **Edit** to modify it directly. |
+| **Graph tab** | For custom skills, shows the **Open Graph** button to dive into the node's internal sub-graph. |
+
+<Tip>
+  Double-click any node's title on the canvas to rename it inline, without opening the Inspector panel.
+</Tip>

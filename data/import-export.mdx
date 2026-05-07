@@ -1,0 +1,52 @@
+---
+title: "Import and export GUIness skills and pipeline files"
+description: "Import skills from .md, .json, .txt, .skill, and .zip archives, and export your pipeline library or save pipelines as portable .pipeline.json files."
+---
+
+GUIness provides a complete import/export system for moving skills and pipelines in and out of the application. You can import individual files as skill nodes, unpack structured `.skill` or `.zip` archives into connected node graphs, save pipelines to localStorage or as portable files, and export your entire skill library for sharing or backup.
+
+## Skill import
+
+Click the **⬆ Import File** button in the Node Library panel. The file picker accepts multiple files at once, so you can import a batch of skills in a single operation.
+
+How the file is handled depends on its type:
+
+**Plain text files (`.md`, `.txt`, `.json`)**
+
+The file is imported as a single skill node. The file's contents become the node's `rawContent`. Use this for quickly turning a prompt file, config document, or JSON schema into a reusable skill.
+
+**Structured archives (`.skill`, `.zip`)**
+
+The archive is unpacked and reconstructed as a connected graph of primitive nodes. GUIness maps file types to node types as follows:
+
+| File type | Node type |
+|---|---|
+| Python, JavaScript, Bash files | Code nodes |
+| JSON, YAML, config files | Context nodes |
+| `SKILL.md` | Main Compute skill |
+| Other `.md` files | Compute nodes |
+
+Connections between nodes are inferred from import statements in the code, numbered file name prefixes, and the folder structure of the archive.
+
+## Pipeline save and load
+
+| Action | Description |
+|---|---|
+| **💾 Save Pipeline** | Saves the current pipeline to localStorage. |
+| **◎ Save as Node** | Exports the pipeline as a `.pipeline.json` file with all referenced skills bundled inside. |
+| **📂 Open** | Click the Open button in the tab bar to load a saved pipeline from a `.pipeline.json` file. If any skills referenced by the pipeline are missing from your library, GUIness detects them and prompts you to import them before continuing. |
+
+<Note>
+  When you open a pipeline, GUIness checks each node against your current skill library. If a skill is missing — for example because the pipeline was created on a different machine — you'll be prompted to import the missing skills before the pipeline loads fully.
+</Note>
+
+## Library save and load
+
+| Action | Description |
+|---|---|
+| **↑ Save Library** | Exports your entire skill library as a single `.json` file. |
+| **↑ Load Library** | Imports a previously saved library file, merging the skills it contains with your existing library. Duplicate skills are not overwritten. |
+
+<Tip>
+  Use **Save as Node** to share a complete pipeline with a colleague. The `.pipeline.json` file bundles all referenced skills, so the recipient can open it on any GUIness instance without needing your skill library pre-installed.
+</Tip>

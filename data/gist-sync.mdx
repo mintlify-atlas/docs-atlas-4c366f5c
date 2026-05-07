@@ -1,0 +1,44 @@
+---
+title: "Back up GUIness to GitHub Gist for cross-device sync"
+description: "Back up your GUIness skill library and pipelines to a private GitHub Gist for cloud storage and cross-device access with timestamp-based conflict detection."
+---
+
+GitHub Gist sync gives you cloud backup and cross-device access for your skills and pipelines without requiring any server infrastructure. GUIness pushes your skill library (and optionally your open pipelines) to a private Gist on your GitHub account, and pulls them back down on any device where you have the same GitHub token in the Vault. Conflict detection based on timestamps prevents silent data loss when switching between machines.
+
+## Setup
+
+<Steps>
+  <Step title="Create a classic GitHub token">
+    Go to [https://github.com/settings/tokens](https://github.com/settings/tokens) and generate a new **classic** token (not a fine-grained token). Select the `gist` scope. Copy the token — you won't be able to see it again after leaving the page.
+  </Step>
+  <Step title="Add the token to the Vault">
+    Open the Vault in GUIness and add the token as a **GitHub Token** credential. Enter your master password to encrypt and save it.
+  </Step>
+  <Step title="Open the sync panel">
+    Click **⎇ GitHub** in the top toolbar to open the Gist sync panel.
+  </Step>
+  <Step title="Create or connect a Gist">
+    Click **+ Create Gist** to create a new private Gist automatically, or paste an existing Gist ID into the field to connect to one you've already created.
+  </Step>
+</Steps>
+
+## Sync options
+
+| Option | Description |
+|---|---|
+| **Scope: Skills / All** | Sync just your skill library, or skills plus all open pipelines. |
+| **Auto-Sync: On / Off** | When enabled, GUIness pushes to the Gist on every autosave tick — no manual action needed. |
+| **↓ Pull** | Download the Gist contents. Conflict detection compares timestamps: remote wins if it is newer; local wins if it is newer (the remote copy is skipped). |
+| **↑ Push** | Upload to the Gist. Only user-created skills are pushed — built-in primitives are excluded. |
+
+<Note>
+  Only classic GitHub tokens are supported. Fine-grained personal access tokens do not work with the Gist API in the way GUIness uses it. Make sure the token has the `gist` scope selected.
+</Note>
+
+<Warning>
+  Pull uses timestamp-based conflict detection, which means the newer copy wins. If you edit skills on two devices without syncing between edits, one set of changes will be discarded. Always Push before switching to a different device to avoid losing work.
+</Warning>
+
+<Tip>
+  Use a private Gist (the default when clicking **+ Create Gist**) to keep your skill library out of public search results. Anyone with the Gist ID and a GitHub account can view a public Gist, even without your token.
+</Tip>

@@ -1,81 +1,97 @@
 ---
-title: "Quickstart"
-description: "Start building awesome documentation in minutes"
-icon: 'rocket'
+title: "GUIness quickstart: build and run your first pipeline"
+description: "Learn how to open GUIness, add your first nodes to the canvas, connect them, and run a pipeline against an LLM provider in five steps."
 ---
 
-## Get started in three steps
+GUIness is a self-contained, single-file HTML application for designing, testing, and executing AI skill pipelines. It runs entirely in the browser — no server, no install, no dependencies. This quickstart walks you through opening the file, building your first pipeline from primitive nodes, and sending it to an LLM.
 
-Get your documentation site running locally and make your first customization.
+## Requirements
 
-### Step 1: Set up your local environment
+Before you begin, make sure you have:
 
-<AccordionGroup>
-  <Accordion icon="copy" title="Clone your docs locally">
-    During the onboarding process, you created a GitHub repository with your docs content if you didn't already have one. You can find a link to this repository in your [dashboard](https://dashboard.mintlify.com).
-    
-    To clone the repository locally so that you can make and preview changes to your docs, follow the [Cloning a repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) guide in the GitHub docs.
-  </Accordion>
-  <Accordion icon="rectangle-terminal" title="Start the preview server">
-    1. Install the Mintlify CLI: `npm i -g mint`
-    2. Navigate to your docs directory and run: `mint dev`
-    3. Open `http://localhost:3000` to see your docs live!
-    
-    <Tip>Your preview updates automatically as you edit files.</Tip>
-  </Accordion>
-</AccordionGroup>
+- A modern browser (Chrome, Edge, Firefox, or Safari)
+- An API key for at least one LLM provider (Anthropic, OpenAI, or Gemini), or a local Ollama or OpenClaw instance
 
-### Step 2: Deploy your changes
+## Build your first pipeline
 
-<AccordionGroup>
-  <Accordion icon="github" title="Install our GitHub app">
-    Install the Mintlify GitHub app from your [dashboard](https://dashboard.mintlify.com/settings/organization/github-app).
-    
-    Our GitHub app automatically deploys your changes to your docs site, so you don't need to manage deployments yourself.
-</Accordion>
-<Accordion icon="palette" title="Update your site name and colors">
-    For a first change, let's update the name and colors of your docs site.
+<Steps>
+  <Step title="Open the file">
+    Double-click `pipeline-builder.html` in your file manager to open it in your default browser.
 
-    1. Open `docs.json` in your editor.
-    2. Change the `"name"` field to your project name.
-    3. Update the `"colors"` to match your brand.
-    4. Save and see your changes instantly at `http://localhost:3000`.
+    <Note>
+      For full File System Access API support — including autosave backups to a local folder — serve the file from `localhost` instead of opening it directly via the `file://` protocol.
+    </Note>
+  </Step>
 
-    <Tip>Try changing the primary color to see an immediate difference!</Tip>
-  </Accordion>
-</AccordionGroup>
+  <Step title="Add nodes from the Node Library">
+    The Node Library on the left lists all available skill types. Click the **+** button next to any primitive to place it on the canvas.
 
-### Step 3: Go live
+    There are 6 primitive node types to choose from: **Text**, **Inputs**, **Compute**, **Code**, **Router**, and **Context**.
 
-<Accordion icon="rocket" title="Publish your docs">
-  1. Commit and push your changes.
-  2. Your docs will update and be live in moments!
-</Accordion>
+    <Tip>
+      Start with a **Text** node for static content (like a prompt template) and a **Compute** node to run LLM inference on it.
+    </Tip>
+  </Step>
 
-## Next steps
+  <Step title="Connect nodes">
+    Drag from an **output port** (solid filled circle on the right side of a node) to an **input port** (open circle on the left side of another node) to create a connection.
 
-Now that you have your docs running, explore these key features:
+    Connections flow left-to-right by convention. The system prevents cycles — you cannot create an infinite loop except through Router nodes with explicit loop control.
+  </Step>
 
-<CardGroup cols={2}>
+  <Step title="Configure nodes in the Inspector panel">
+    Click any node on the canvas to select it. The Inspector panel on the right shows that node's configurable fields:
 
-<Card title="Write Content" icon="pen-to-square" href="/essentials/markdown">
-  Learn MDX syntax and start writing your documentation.
-</Card>
+    - **Text** — paste or type your static content
+    - **Inputs** — set the source type (text, file, URL, API, clipboard)
+    - **Compute** — write instructions and choose an executor (LLM, Function, HTTP, or Code)
+    - **Code** — select a language and write the script
+    - **Router** — define a condition and evaluation mode (LLM or JS expression)
+    - **Context** — add variables and set a merge mode
 
-<Card title="Customize style" icon="palette" href="/essentials/settings">
-  Make your docs match your brand perfectly.
-</Card>
+    You can also edit the node's name, description, tags, color, and shape from the top of the Inspector panel.
+  </Step>
 
-<Card title="Add code examples" icon="square-code" href="/essentials/code">
-  Include syntax-highlighted code blocks.
-</Card>
+  <Step title="Run the pipeline">
+    Click **Export → LLM** in the top-right toolbar to open the Run drawer.
 
-<Card title="API documentation" icon="code" href="/api-reference/introduction">
-  Auto-generate API docs from OpenAPI specs.
-</Card>
+    1. Go to the **Run** tab in the drawer.
+    2. Click **Vault** in the toolbar and add your API key for the provider you want to use.
+    3. Select a provider (Anthropic, OpenAI, Gemini, or Local).
+    4. Choose a model from the dropdown.
+    5. Click **▶ Send to LLM**.
 
-</CardGroup>
+    The response streams into the response area in real time. You can toggle between **Raw** and **Preview** modes, copy or save the output, or send a follow-up message.
 
-<Note>
-  **Need help?** See our [full documentation](https://mintlify.com/docs) or join our [community](https://mintlify.com/community).
-</Note>
+    <Note>
+      Only nodes connected to at least one edge are included in the export. Disconnected nodes on the canvas are ignored.
+    </Note>
+  </Step>
+</Steps>
+
+## Use a local LLM with Ollama
+
+For free, private execution without a cloud API key, install [Ollama](https://ollama.com) and run a model locally:
+
+```bash
+ollama run llama3
+```
+
+Then restart Ollama with CORS enabled so the browser can reach it:
+
+```bash
+OLLAMA_ORIGINS=* ollama serve
+```
+
+In the Run drawer, select **⊙ Local**, leave the URL set to `http://localhost:11434`, and click **Detect** to automatically find your available models.
+
+## Use OpenClaw
+
+If you use [OpenClaw](https://openclaw.dev), enable the chat completions endpoint in `~/.openclaw/openclaw.json`, then:
+
+1. Set the URL in the Local provider field to `http://localhost:18789`.
+2. Open the Vault and add your gateway token as an **OpenClaw Token**.
+
+<Tip>
+  The Vault encrypts all credentials with a master password using AES-GCM. Credentials are only decrypted in memory during your session.
+</Tip>

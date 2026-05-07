@@ -1,0 +1,64 @@
+---
+title: "Post LLM output to Bluesky, LinkedIn, and Instagram"
+description: "Use GUIness Post to Social to format LLM responses with a rich text editor and publish simultaneously to Bluesky, LinkedIn, Twitter, and Instagram."
+---
+
+Post to Social is located in the Export drawer, below the Run section. Click **▸ POST TO SOCIAL** to expand the panel. When opened, the most recent LLM response is automatically loaded into the editor so you can format and publish without switching windows or copying text manually.
+
+<Note>
+  Platform credentials must be added to the Vault before posting. Required entries: Bluesky credentials (handle and app password), LinkedIn token, Twitter token, and Meta/Instagram token. Platforms without Vault credentials appear as grey chips and cannot be selected.
+</Note>
+
+## Rich text editor
+
+The editor provides a full formatting toolbar for composing and styling your post content:
+
+- **Text style** — Bold, italic, underline, strikethrough
+- **Headings** — H1, H2, H3
+- **Lists** — Bullet lists and numbered lists
+- **Alignment** — Left, center, right, justify
+- **Font** — Font family selection and font size
+- **Links** — Insert hyperlinks with custom display text
+- **Clear formatting** — Strip all formatting from selected text
+
+The LLM response loads into the editor automatically when you expand the panel. You can edit the content freely before previewing or posting.
+
+## Platforms
+
+Four platforms are available as selectable chips:
+
+| Platform | Character limit enforced |
+|----------|--------------------------|
+| **Bluesky** | Yes — live character count shown |
+| **LinkedIn** | Yes — live character count shown |
+| **Twitter** | Yes — live character count shown |
+| **Instagram** | Yes — live character count shown |
+
+Each chip displays a live character count that updates as you type. Grey chips indicate that no credentials for that platform are stored in the Vault. Multiple platforms can be selected simultaneously — a single Post action publishes to all selected platforms at once.
+
+<Warning>
+  Each platform enforces its own character limit and image restrictions. Instagram requires at least one image. Truncation warnings are shown in the Preview step before posting, flagging any content that exceeds a platform's limit.
+</Warning>
+
+## Images
+
+Click the image upload area or drag and drop files to attach images to your post.
+
+- Multiple images are supported with thumbnail previews displayed below the upload zone
+- Per-platform image limits (count and file size) are enforced at preview time, not at upload time
+- Unsupported image counts or formats for a given platform are flagged in the preview before you post
+
+## Preview and post
+
+<Steps>
+  <Step title="Preview">
+    Click **👁 Preview** to see a per-platform preview of your post. The preview shows the formatted content as it will appear on each selected platform, including character counts and any truncation warnings where content exceeds platform limits.
+  </Step>
+  <Step title="Post">
+    Click **📤 Post** to publish. A confirmation dialog appears before any content is sent. After confirming, GUIness posts to all selected platforms simultaneously and displays a per-platform result — each platform shows either a success confirmation or a failure message with the error reason.
+  </Step>
+</Steps>
+
+## Save as HTML
+
+Click the **💾** button in the editor toolbar to download the current editor content as a standalone HTML file. The saved file preserves all formatting applied in the rich text editor and can be opened in any browser.

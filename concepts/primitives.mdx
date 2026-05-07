@@ -1,0 +1,42 @@
+---
+title: "Node primitives: the 6 GUIness building block types"
+description: "GUIness has 6 primitive node types — TEXT, INPUTS, COMPUTE, CODE, ROUTER, and CONTEXT — that every pipeline and custom skill is composed from."
+---
+
+Primitives are the atomic building blocks of GUIness. Every custom skill, template, and agent you create is composed from exactly these six node types — nothing else exists at the foundational level. Understanding what each primitive does, and when to reach for it, is the core of working effectively in GUIness.
+
+<CardGroup cols={2}>
+  <Card title="✦ TEXT" color="#60a5fa">
+    Raw text entry point. Type or paste content directly into the node. TEXT has no inputs and makes no LLM call — it is output-only. Use it as the starting point for static content like system prompts, reference material, or reusable templates.
+  </Card>
+  <Card title="⬡ INPUTS" color="#e8a020">
+    General-purpose input boundary for your pipeline. Accepts text, files, URLs, API endpoints, and clipboard data. A Source Type selector lets you specify what kind of input to expect, and file uploads are automatically extracted to plain text before passing downstream.
+  </Card>
+  <Card title="⚙ COMPUTE" color="#fb923c">
+    The unit of work. COMPUTE runs LLM inference, function calls, HTTP requests, or code execution depending on which Executor you select (LLM, Function, HTTP, or Code). The Instructions field describes what the node should do with its inputs.
+  </Card>
+  <Card title="⊞ CODE" color="#22d3ee">
+    A standalone code block with language selection. Supports Python, JavaScript, TypeScript, Bash, SQL, and more. Use CODE to define scripts, queries, or any executable logic that COMPUTE or ROUTER nodes can reference in a pipeline.
+  </Card>
+  <Card title="◇ ROUTER" color="#c084fc">
+    The decision-maker. ROUTER branches execution based on a Condition you define, using either LLM natural language evaluation or a JavaScript expression. It exposes pass and fail output ports. You can also configure it to loop, with a configurable maximum number of iterations to prevent runaway execution.
+  </Card>
+  <Card title="◎ CONTEXT" color="#34d399">
+    State aggregation without an LLM call. CONTEXT merges multiple inputs and variables into a single unified context object. Use it to combine research results, audience data, and constraints before feeding them into a COMPUTE node.
+  </Card>
+</CardGroup>
+
+## System nodes
+
+Two additional nodes handle data wiring inside sub-graphs. They are not primitives you build with directly, but they appear automatically when you work inside an internal graph:
+
+- **▶ GRAPH INPUT** — Exposes the parent node's input ports inside a sub-graph so the sub-graph can receive data from the outer pipeline.
+- **◀ GRAPH OUTPUT** — Sends the sub-graph's results back out to the parent node's output ports.
+
+<Tip>
+Use CONTEXT when you need to gather and unify data from multiple upstream nodes without triggering an LLM call. Save COMPUTE for steps that actually need to reason, infer, or generate — this keeps your pipelines faster and your token usage lower.
+</Tip>
+
+<Note>
+Primitives are locked. They appear in the Built-In tab of the Node Library and cannot be edited or deleted. You can use them on the canvas and wire them freely, but their definitions are fixed.
+</Note>

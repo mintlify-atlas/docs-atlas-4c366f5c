@@ -1,0 +1,44 @@
+---
+title: "Autosave, localStorage, and file system backup in GUIness"
+description: "GUIness saves skills and pipelines to localStorage automatically and optionally writes backup JSON files to a local directory via the File System Access API."
+---
+
+GUIness saves your work automatically so you don't have to think about it. Both skills and pipelines are persisted to localStorage on a configurable interval, and an optional file system backup writes JSON files to a directory of your choice on every autosave tick — giving you a recoverable copy even if your browser storage is cleared.
+
+## localStorage autosave
+
+Skills and pipelines are saved to localStorage at a configurable interval (default: 1 minute). The timestamp of the last successful save is shown in the top toolbar so you always know how fresh your backup is. No action is needed to enable localStorage autosave — it runs automatically from the moment you open GUIness.
+
+## File system backup
+
+File system backup writes three JSON files to a directory you select, on every autosave tick. This requires granting GUIness write access to a local directory via the browser's File System Access API.
+
+<Steps>
+  <Step title="Open the directory picker">
+    Click the **📁** button in the top toolbar.
+  </Step>
+  <Step title="Select a backup directory">
+    Your operating system's file picker opens. Choose any local directory — GUIness will write backup files there on every save.
+  </Step>
+  <Step title="Autosave writes three files">
+    On each autosave tick, GUIness writes the following files to the selected directory:
+
+    | File | Contents |
+    |---|---|
+    | `pb-skills-autosave.json` | Your full skill library |
+    | `pb-pipelines-autosave.json` | All open pipelines |
+    | `pb-autosave-snapshot.json` | Combined snapshot with timestamp |
+  </Step>
+</Steps>
+
+## Page unload safety
+
+A safety-net save fires whenever you close or refresh the tab. This catches any work done between the last autosave tick and the moment you leave the page, reducing the window of potential data loss to near zero.
+
+<Note>
+  File system backup requires HTTPS or `localhost`. It is not available when opening GUIness directly from the file system using the `file://` protocol. Serve the file from a local server (for example, `npx serve .`) to enable this feature.
+</Note>
+
+<Tip>
+  Point the backup directory at a cloud-synced folder such as Dropbox, OneDrive, or iCloud Drive. Every autosave tick will then push your latest skills and pipelines off-device automatically, giving you cross-machine recovery without any extra steps.
+</Tip>

@@ -1,0 +1,53 @@
+---
+title: "Vault: AES-GCM encrypted credential storage in GUIness"
+description: "The GUIness Vault stores API keys and tokens encrypted with AES-GCM using a master password. Credentials are decrypted only in memory during your session."
+---
+
+The Vault is GUIness's built-in credential manager. It encrypts every API key and token you store using AES-GCM with a master password you choose, and decrypts them only in memory during your active session — nothing is ever stored in plaintext. Access the Vault via the key-count button in the top toolbar.
+
+## Supported credential types
+
+| Type | Used For |
+|---|---|
+| Anthropic API Key | Claude models via Run Pipeline |
+| OpenAI API Key | GPT models via Run Pipeline |
+| Gemini API Key | Gemini models + live model list |
+| OpenClaw Token | OpenClaw gateway authentication |
+| GitHub Token | Gist sync (classic token with gist scope) |
+| Gist ID | Target Gist for sync |
+| Bluesky Credentials | Post to Bluesky (handle:app-password format) |
+| LinkedIn Token | Post to LinkedIn |
+| Twitter Token | Post to Twitter |
+| Meta/IG Token | Post to Instagram |
+
+## How to add a credential
+
+<Steps>
+  <Step title="Open the Vault">
+    Click the Vault button in the top toolbar. The button displays the current count of stored credentials.
+  </Step>
+  <Step title="Start a new entry">
+    Click **Add Credential** inside the Vault panel.
+  </Step>
+  <Step title="Select the credential type">
+    Choose the credential type from the dropdown (for example, Anthropic API Key or GitHub Token).
+  </Step>
+  <Step title="Enter the value">
+    Paste or type the key, token, or credential string into the value field.
+  </Step>
+  <Step title="Encrypt and save">
+    Enter your master password. GUIness encrypts the credential with AES-GCM and saves it to localStorage.
+  </Step>
+</Steps>
+
+<Warning>
+  If you lose your master password, you cannot recover stored credentials. There is no reset mechanism — you would need to re-enter each credential from scratch.
+</Warning>
+
+<Note>
+  Credentials are stored encrypted in your browser's localStorage and are never sent to any external server. They leave your device only when you initiate a specific LLM or social API call that requires them.
+</Note>
+
+<Tip>
+  For Bluesky, use the `handle:app-password` format — for example, `user.bsky.social:xxxx-xxxx-xxxx-xxxx`. You can generate an app password in your Bluesky account settings without exposing your main account password.
+</Tip>

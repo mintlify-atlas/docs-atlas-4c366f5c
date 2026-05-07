@@ -1,0 +1,67 @@
+---
+title: "Node Library: browse, create, and manage GUIness skills"
+description: "The GUIness Node Library is the left panel where you browse, search, create, import, and manage all skills available for your pipelines."
+---
+
+The Node Library is the left panel of the GUIness interface. It contains every skill available for your pipelines — from the six built-in primitive nodes to custom skills you create, import, or generate with AI. Use it to browse, search, filter, and add skills directly to the canvas.
+
+## Library tabs
+
+<Tabs>
+  <Tab title="MY SKILLS">
+    Your user-created skills live here. Every skill you build with the wizard, generate with AI, or import from a file appears in this tab. Skills are editable, deletable, and organized into collapsible categories. This is the primary tab for managing your personal skill library.
+  </Tab>
+  <Tab title="BUILT-IN">
+    The six primitive node types — Text, Inputs, Compute, Code, Router, and Context — plus the two Graph I/O nodes (Graph Input and Graph Output) are listed here. Built-in skills are locked and cannot be edited or deleted.
+  </Tab>
+  <Tab title="RECENT">
+    Skills you have used recently appear here for quick access. The list updates automatically as you work, so your most-reached-for skills are always one click away.
+  </Tab>
+  <Tab title="PIPELINES">
+    Lists all currently open pipelines and recently closed ones. Switch between pipelines or reopen a recent one without leaving the canvas.
+  </Tab>
+</Tabs>
+
+## Actions
+
+Three buttons at the top of the Node Library let you add skills to your library:
+
+<Steps>
+  <Step title="Generate — create a skill with AI">
+    Click **✦ Generate** to open the AI skill generator. Select a provider (Anthropic, OpenAI, Gemini, or Local), choose a model, and describe the skill you want to create. GUIness sends your description to the LLM and constructs a new skill in your library automatically.
+  </Step>
+  <Step title="Add Skill — build manually with the wizard">
+    Click **+ Add Skill** to open the skill creation wizard. Fill in the skill name, pick a color and glyph, configure input and output ports, add any primitive fields, and write the skill content. The wizard walks through each property step by step.
+  </Step>
+  <Step title="Import File — load skills from disk">
+    Click **⬆ Import File** to import one or more files from your filesystem. Supported formats: `.md`, `.json`, `.txt`, `.skill`, and `.zip`. Multiple files can be selected at once. Zip files are unpacked and reconstructed as a connected node graph — Python, JavaScript, and Bash files become Code nodes; JSON and YAML files become Context nodes; markdown files become Compute nodes, with connections inferred from import statements, numbered prefixes, and folder structure.
+  </Step>
+</Steps>
+
+<Tip>
+  Use **✦ Generate** to quickly scaffold skills from a plain-language description. Describe the skill's purpose in a sentence or two and GUIness will produce a complete skill definition — which you can then refine with the wizard.
+</Tip>
+
+## Skill card actions
+
+Hover over any skill card in the library to reveal a set of action buttons:
+
+| Action | Description |
+|---|---|
+| **Edit** | Opens the skill wizard with the skill's current settings pre-filled, so you can modify any property. |
+| **Duplicate** | Creates an editable copy of the skill with a new name. Useful for building variations without losing the original. |
+| **Open Graph** | Opens the skill's internal node graph on the canvas, letting you inspect or edit its composition of primitive nodes. |
+| **Delete** | Removes the skill from your library after a confirmation prompt. This action cannot be undone. |
+
+<Note>
+  Built-in skills are locked and do not show Edit, Duplicate, or Delete actions. They can be added to the canvas but cannot be modified or removed from the library.
+</Note>
+
+## Categories
+
+Skills in the MY SKILLS tab are grouped under category headers. Each header is:
+
+- **Collapsible** — click a category header to expand or collapse the skills beneath it.
+- **Editable** — double-click a category header to rename it inline.
+
+The sort order within categories is controlled by the dropdown next to the search bar. Options are **A→Z**, **Z→A**, **Newest**, and **Oldest**.
